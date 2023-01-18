@@ -28,4 +28,13 @@
       <script defer src="${url.resourcesPath}/${script}" type="text/javascript"></script>
     </#list>
   </#if>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: "Noto Sans", "Open Sans", Arial, sans-serif;
+    }
+  </style>
 </#macro>

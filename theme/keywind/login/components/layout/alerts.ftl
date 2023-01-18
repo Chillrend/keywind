@@ -16,7 +16,8 @@
       <#assign color="bg-blue-100 text-blue-600">
   </#switch>
 
-  <div class="${color} p-4 rounded-lg text-sm" role="alert">
+  <div class="${color} mx-auto text-center p-4 rounded-lg text-sm" role="alert">
     <span>${kcSanitize(message.summary)?no_esc}</span>
   </div>
+
 </#macro>

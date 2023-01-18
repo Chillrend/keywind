@@ -2,7 +2,7 @@
 
 <#macro kw>
   <div class="pt-4 separate text-secondary-600 text-sm">${msg("identity-provider-login-label")}</div>
-  <div class="gap-4 grid grid-cols-3">
+  <div class="gap-4 grid grid-cols-1">
     <#list social.providers as provider>
       <#switch provider.alias>
         <#case "bitbucket">
@@ -61,9 +61,8 @@
           <div class="h-6 w-6">
             <@iconProvider[provider.alias] />
           </div>
-        <#else>
-          ${provider.displayName!}
         </#if>
+          <p class='ml-2'>Login with ${provider.displayName!?capitalize}</p>
       </a>
     </#list>
   </div>
