@@ -66,7 +66,6 @@
     <#if msg??>
     var locale = '${locale}';
     <#outputformat "JavaScript">
-    var l18nMsg = JSON.parse('${msgJSON?js_string}');
     </#outputformat>
     <#else>
     var locale = 'en';
