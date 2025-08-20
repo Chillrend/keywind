@@ -13,6 +13,9 @@
     ${msg("loginProfileTitle")}
   <#elseif section="form">
     <@form.kw action=url.loginAction method="post">
+      <#list profile.attributes as attribute>
+        ${attribute}
+      </#list>
       <#-- Determine editability based on User Profile attribute metadata -->
       <#assign firstReadOnly = (profile?? && profile.attributes["firstName"]?? && (profile.attributes["firstName"].readOnly!false))>
       <#assign lastReadOnly  = (profile?? && profile.attributes["lastName"]??  && (profile.attributes["lastName"].readOnly!false))>
