@@ -2,24 +2,66 @@
 <#import "components/atoms/button.ftl" as button>
 <#import "components/atoms/button-group.ftl" as buttonGroup>
 <#import "components/atoms/form.ftl" as form>
-
-<#-- keep these so we match Keycloak's latest defaults -->
-<#import "password-commons.ftl" as passwordCommons>
-<#import "user-profile-commons.ftl" as userProfileCommons>
+<#import "components/atoms/input.ftl" as input>
 
 <@layout.registrationLayout
-displayMessage=messagesPerField.exists('global')
-displayRequiredFields=true
-; section
+  displayMessage=!messagesPerField.existsError("email", "firstName", "lastName", "username")
+  ;
+  section
 >
-  <#if section = "header">
-    ${msg("updateEmailTitle")}
-  <#elseif section = "form">
-    <@form.kw id="kc-update-email-form" action=url.loginAction method="post">
-      <@userProfileCommons.userProfileFormFields/>
+  <#if section="header">
+    ${msg("loginProfileTitle")}
+  <#elseif section="form">
+    <@form.kw action=url.loginAction method="post">
+      <#-- Determine editability based on User Profile attribute metadata -->
+      <#assign firstReadOnly = (profile?? && profile.attributes["firstName"]?? && (profile.attributes["firstName"].readOnly!false))>
+      <#assign lastReadOnly  = (profile?? && profile.attributes["lastName"]??  && (profile.attributes["lastName"].readOnly!false))>
 
-      <@passwordCommons.logoutOtherSessions/>
-
+      <#assign canEditFirst = !firstReadOnly>
+      <#assign canEditLast  = !lastReadOnly>
+      <#if user.editUsernameAllowed>
+        <@input.kw
+          autocomplete="username"
+          autofocus=true
+          invalid=messagesPerField.existsError("username")
+          label=msg("username")
+          message=kcSanitize(messagesPerField.get("username"))
+          name="username"
+          type="text"
+          value=(user.username)!''
+        />
+      </#if>
+      <@input.kw
+        autocomplete="email"
+        invalid=messagesPerField.existsError("email")
+        label=msg("email")
+        message=kcSanitize(messagesPerField.get("email"))
+        name="email"
+        type="email"
+        value=(user.email)!''
+      />
+      <#if canEditFirst>
+        <@input.kw
+          autocomplete="given-name"
+          invalid=messagesPerField.existsError("firstName")
+          label=msg("firstName")
+          message=kcSanitize(messagesPerField.get("firstName"))
+          name="firstName"
+          type="text"
+          value=(user.firstName)!''
+        />
+      </#if>
+      <#if canEditLast>
+        <@input.kw
+          autocomplete="family-name"
+          invalid=messagesPerField.existsError("lastName")
+          label=msg("lastName")
+          message=kcSanitize(messagesPerField.get("lastName"))
+          name="lastName"
+          type="text"
+          value=(user.lastName)!''
+        />
+      </#if>
       <@buttonGroup.kw>
         <#if isAppInitiatedAction??>
           <@button.kw color="primary" type="submit">
