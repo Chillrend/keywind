@@ -14,8 +14,8 @@
   <#elseif section="form">
     <@form.kw action=url.loginAction method="post">
       <#-- Determine editability based on User Profile attribute metadata -->
-      <#assign firstReadOnly = (userProfile?? && userProfile.attributes["firstName"]??) ? (userProfile.attributes["firstName"].readOnly!false) : false>
-      <#assign lastReadOnly  = (userProfile?? && userProfile.attributes["lastName"]??)  ? (userProfile.attributes["lastName"].readOnly!false)  : false>
+      <#assign firstReadOnly = (userProfile?? && userProfile.attributes["firstName"]?? && (userProfile.attributes["firstName"].readOnly!false))>
+      <#assign lastReadOnly  = (userProfile?? && userProfile.attributes["lastName"]??  && (userProfile.attributes["lastName"].readOnly!false))>
 
       <#assign canEditFirst = !firstReadOnly>
       <#assign canEditLast  = !lastReadOnly>
