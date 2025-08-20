@@ -3,7 +3,7 @@
 <#import "components/atoms/button-group.ftl" as buttonGroup>
 <#import "components/atoms/form.ftl" as form>
 
-<#-- keep these so we match Keycloak's latest defaults -->
+<#-- Keep Keycloak's shared macros so fields/validation follow User Profile config -->
 <#import "password-commons.ftl" as passwordCommons>
 <#import "user-profile-commons.ftl" as userProfileCommons>
 
