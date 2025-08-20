@@ -31,7 +31,7 @@
       </#list>
       <#-- Determine editability based on User Profile attribute metadata -->
       <#assign firstReadOnly = (firstAttr?? && (firstAttr.readOnly!false))>
-      <#assign firstReadOnly = (lastAttr?? && (lastAttr.readOnly!false))>
+      <#assign lastReadOnly = (lastAttr?? && (lastAttr.readOnly!false))>
 
       <#assign canEditFirst = !firstReadOnly>
       <#assign canEditLast  = !lastReadOnly>
