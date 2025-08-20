@@ -35,5 +35,42 @@ displayRequiredFields=true
         </#if>
       </@buttonGroup.kw>
     </@form.kw>
+
+  <#-- Client-side email domain validation: only @pnj.ac.id and subdomains -->
+    <script nonce="${cspNonce}">
+      (function () {
+        var form = document.getElementById('kc-update-email-form');
+        if (!form) return;
+        var email = form.querySelector('input[name="email"], input#email, input[type="email"]');
+        if (!email) return;
+
+        // Allow @pnj.ac.id or any *.pnj.ac.id (case-insensitive)
+        var allowed = /@(?:[A-Za-z0-9-]+\.)*pnj\.ac\.id$/i;
+
+        // Progressive enhancement: HTML5 pattern + tooltip
+        try {
+          email.setAttribute('pattern', '^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)*pnj\\.ac\\.id$');
+          email.setAttribute('title', 'Use your @pnj.ac.id address (subdomains like name@dept.pnj.ac.id are allowed).');
+        } catch (e) {}
+
+        function validate() {
+          email.setCustomValidity('');
+          var v = (email.value || '').trim();
+          if (!v) return; // let "required" handle empties if applicable
+          if (!allowed.test(v)) {
+            email.setCustomValidity('Please use an @pnj.ac.id address (subdomains like name@dept.pnj.ac.id are allowed).');
+          }
+        }
+
+        email.addEventListener('input', validate);
+        form.addEventListener('submit', function (e) {
+          validate();
+          if (!form.checkValidity()) {
+            e.preventDefault();
+            if (email.reportValidity) email.reportValidity();
+          }
+        });
+      })();
+    </script>
   </#if>
 </@layout.registrationLayout>
