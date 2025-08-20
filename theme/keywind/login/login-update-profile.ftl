@@ -4,6 +4,19 @@
 <#import "components/atoms/form.ftl" as form>
 <#import "components/atoms/input.ftl" as input>
 
+<#function findAttr attrs name>
+  <#list attrs?default([]) as a>
+    <#if (a.name!'') == name>
+      <#return a>
+    </#if>
+  </#list>
+  <#return nothing>
+</#function>
+
+<#-- If your attributes live directly in `profile` (a sequence) -->
+<#assign firstAttr = findAttr(profile.attributes, 'firstName')>
+<#assign lastAttr = findAttr(profile.attributes, 'lastName')>
+
 <@layout.registrationLayout
   displayMessage=!messagesPerField.existsError("email", "firstName", "lastName", "username")
   ;
@@ -17,8 +30,8 @@
         ${attribute}
       </#list>
       <#-- Determine editability based on User Profile attribute metadata -->
-      <#assign firstReadOnly = (profile?? && profile.attributes["firstName"]?? && (profile.attributes["firstName"].readOnly!false))>
-      <#assign lastReadOnly  = (profile?? && profile.attributes["lastName"]??  && (profile.attributes["lastName"].readOnly!false))>
+      <#assign firstReadOnly = (firstAttr?? && (firstAttr.readOnly!false))>
+      <#assign firstReadOnly = (lastAttr?? && (lastAttr.readOnly!false))>
 
       <#assign canEditFirst = !firstReadOnly>
       <#assign canEditLast  = !lastReadOnly>
