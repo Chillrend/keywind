@@ -13,6 +13,12 @@
     ${msg("loginProfileTitle")}
   <#elseif section="form">
     <@form.kw action=url.loginAction method="post">
+      <#-- Determine editability based on User Profile attribute metadata -->
+      <#assign firstReadOnly = (userProfile?? && userProfile.attributes["firstName"]??) ? (userProfile.attributes["firstName"].readOnly!false) : false>
+      <#assign lastReadOnly  = (userProfile?? && userProfile.attributes["lastName"]??)  ? (userProfile.attributes["lastName"].readOnly!false)  : false>
+
+      <#assign canEditFirst = !firstReadOnly>
+      <#assign canEditLast  = !lastReadOnly>
       <#if user.editUsernameAllowed>
         <@input.kw
           autocomplete="username"
@@ -34,24 +40,28 @@
         type="email"
         value=(user.email)!''
       />
-      <@input.kw
-        autocomplete="given-name"
-        invalid=messagesPerField.existsError("firstName")
-        label=msg("firstName")
-        message=kcSanitize(messagesPerField.get("firstName"))
-        name="firstName"
-        type="text"
-        value=(user.firstName)!''
-      />
-      <@input.kw
-        autocomplete="family-name"
-        invalid=messagesPerField.existsError("lastName")
-        label=msg("lastName")
-        message=kcSanitize(messagesPerField.get("lastName"))
-        name="lastName"
-        type="text"
-        value=(user.lastName)!''
-      />
+      <#if canEditFirst>
+        <@input.kw
+          autocomplete="given-name"
+          invalid=messagesPerField.existsError("firstName")
+          label=msg("firstName")
+          message=kcSanitize(messagesPerField.get("firstName"))
+          name="firstName"
+          type="text"
+          value=(user.firstName)!''
+        />
+      </#if>
+      <#if canEditLast>
+        <@input.kw
+          autocomplete="family-name"
+          invalid=messagesPerField.existsError("lastName")
+          label=msg("lastName")
+          message=kcSanitize(messagesPerField.get("lastName"))
+          name="lastName"
+          type="text"
+          value=(user.lastName)!''
+        />
+      </#if>
       <@buttonGroup.kw>
         <#if isAppInitiatedAction??>
           <@button.kw color="primary" type="submit">
