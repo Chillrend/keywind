@@ -65,7 +65,7 @@
         placeholder="${label}"
         type="${type}"
         <#if name == "email">
-           pattern="^[^@\\s]+@(?:[A-Za-z0-9-]+\\.)*pnj\\.ac\\.id$"
+           pattern="^[a-zA-Z0-9._%+\-]+@([a-zA-Z0-9.\-]+\.)?pnj\.ac\.id$"
            title="Use your @pnj.ac.id address (subdomains allowed)"
         </#if>
 
