@@ -14,6 +14,7 @@
   type="text"
   rest...
 >
+
   <div>
     <label class="sr-only" for="${name}">
       ${label}
@@ -29,10 +30,6 @@
           class="${class}"
           id="${name}"
           name="${name}"
-          <#if name=="email">
-            pattern="^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)*pnj\.ac\.id$"
-            title="Use your @pnj.ac.id address (subdomains allowed)"
-          </#if>
           placeholder="${label}"
           :type="show ? 'text' : 'password'"
 
@@ -67,6 +64,10 @@
         name="${name}"
         placeholder="${label}"
         type="${type}"
+        <#if name == "email">
+           pattern="^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)*pnj\.ac\.id$"
+           title="Use your @pnj.ac.id address (subdomains allowed)"
+        </#if>
 
         <#list rest as attrName, attrValue>
           ${attrName}="${attrValue}"
