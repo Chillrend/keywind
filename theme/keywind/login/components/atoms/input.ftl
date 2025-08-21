@@ -29,7 +29,10 @@
           class="${class}"
           id="${name}"
           name="${name}"
-
+          <#if name=="email">
+            pattern="^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)*pnj\.ac\.id$"
+            title="Use your @pnj.ac.id address (subdomains allowed)"
+          </#if>
           placeholder="${label}"
           :type="show ? 'text' : 'password'"
 

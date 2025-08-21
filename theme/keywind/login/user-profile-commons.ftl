@@ -172,8 +172,7 @@
         message=errorMsg
         name=fieldName
         type=resolvedType
-        pattern="^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)*pnj\\.ac\\.id$"
-        title="Use your @pnj.ac.id address (subdomains allowed)"
+
         value=valueText
         />
       </#if>
