@@ -164,18 +164,6 @@
             ${errorMsg?no_esc}
           </span>
         </#if>
-      <#if fieldName=="email">
-        <@input.kw
-        autocomplete=(attribute.autocomplete)!''
-        invalid=hasError
-        label=(labelText + (attribute.required?string(' *','')))
-        message=errorMsg
-        name=fieldName
-        type=resolvedType
-
-        value=valueText
-        />
-      </#if>
       <#else>
       <#-- Default: your input atom for single-value fields -->
         <#if attribute.readOnly!false>
