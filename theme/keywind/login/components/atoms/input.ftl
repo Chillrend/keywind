@@ -29,6 +29,7 @@
           class="${class}"
           id="${name}"
           name="${name}"
+
           placeholder="${label}"
           :type="show ? 'text' : 'password'"
 

@@ -164,7 +164,7 @@
             ${errorMsg?no_esc}
           </span>
         </#if>
-      <#if attribute.name=="email">
+      <#if fieldName=="email">
         <@input.kw
         autocomplete=(attribute.autocomplete)!''
         invalid=hasError
